@@ -1,3 +1,5 @@
+"use client";
+
 'use client';
 
 // import { useState, useEffect } from 'react'; /* Commented out by fix-eslint.js */
@@ -149,7 +151,7 @@ export default function FileUploadForm() {
           
           <div>
             <label htmlFor="processName" className="block text-sm font-medium text-gray-700 mb-1">
-              Process Name {extractedProcessName ? &apos;(Optional - will use extracted name if empty)&apos; : ''}
+              Process Name {extractedProcessName ? '(Optional - will use extracted name if empty)&apos; : ''}
             </label>
             <input
               type="text"
@@ -187,7 +189,7 @@ export default function FileUploadForm() {
             type="submit"
             disabled={isUploading || nameExists || (!processName && !extractedProcessName)}
           >
-            {isUploading ? &apos;Uploading...&apos; : 'Import Operation'}
+            {isUploading ? 'Uploading...&apos; : 'Import Operation'}
           </Button>
         </div>
       </Card>

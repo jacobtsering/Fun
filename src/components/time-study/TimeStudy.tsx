@@ -29,7 +29,7 @@ export default function TimeStudy({ processId, processName, operations }: TimeSt
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [message, setMessage] = useState<{ text: string; type: &apos;success&apos; | &apos;error&apos; | &apos;info&apos; } | null>(null);
+  const [message, setMessage] = useState<{ text: string; type: 'success&apos; | &apos;error&apos; | &apos;info&apos; } | null>(null);
   
   // Fix: Add a ref to track if a session has been created
   const sessionCreatedRef = useRef(false);
@@ -73,7 +73,7 @@ export default function TimeStudy({ processId, processName, operations }: TimeSt
     
     if (command === 'start') {
       if (timerRunning) {
-        setMessage({ text: 'Timer is already running', type: &apos;error&apos; });
+        setMessage({ text: 'Timer is already running', type: 'error&apos; });
         return;
       }
       
@@ -193,7 +193,7 @@ export default function TimeStudy({ processId, processName, operations }: TimeSt
             setSessionId(null);
             // Fix: Reset session created flag
             sessionCreatedRef.current = false;
-            setMessage({ text: 'Operation cycle completed', type: &apos;info&apos; });
+            setMessage({ text: 'Operation cycle completed', type: 'info&apos; });
           }
         }, 100);
       } catch (error) {
@@ -207,7 +207,7 @@ export default function TimeStudy({ processId, processName, operations }: TimeSt
   
   const handleChangeOperation = () => {
     if (timerRunning) {
-      setMessage({ text: 'Cannot change operation while timer is running', type: &apos;error&apos; });
+      setMessage({ text: 'Cannot change operation while timer is running', type: 'error&apos; });
       return;
     }
     
@@ -262,18 +262,18 @@ export default function TimeStudy({ processId, processName, operations }: TimeSt
           
           <div className="border-t border-b border-gray-200 py-6 my-6">
             <div className="text-center">
-              <div className={`text-4xl font-bold ${timerRunning ? &apos;text-green-600&apos; : ''}`}>
+              <div className={`text-4xl font-bold ${timerRunning ? 'text-green-600&apos; : ''}`}>
                 {formatTime(elapsedTime)}
               </div>
               <p className="text-gray-500 mt-2">
-                {timerRunning ? &apos;Timer Running&apos; : 'Timer Stopped'}
+                {timerRunning ? 'Timer Running&apos; : 'Timer Stopped'}
               </p>
             </div>
           </div>
           
           {message && (
             <div className={`p-3 rounded-md ${
-              message.type === &apos;success&apos; ? &apos;bg-green-50 text-green-600&apos; :
+              message.type === 'success&apos; ? &apos;bg-green-50 text-green-600&apos; :
               message.type === &apos;error&apos; ? &apos;bg-red-50 text-red-600&apos; :
               &apos;bg-blue-50 text-blue-600&apos;
             }`}>

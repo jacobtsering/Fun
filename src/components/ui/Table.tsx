@@ -31,7 +31,7 @@ export default function Table({
             ))}
           </tr>
         </thead>
-        <tbody className={`bg-white divide-y divide-gray-200 ${loading ? &apos;opacity-50&apos; : ''}`}>
+        <tbody className={`bg-white divide-y divide-gray-200 ${loading ? 'opacity-50&apos; : ''}`}>
           {loading ? (
             // Loading skeleton rows
             Array(3).fill(0).map((_, rowIndex) => (

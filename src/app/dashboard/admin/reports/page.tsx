@@ -208,7 +208,7 @@ export default function ReportsPage() {
               'Start Time',
               'End Time',
               'Total Time',
-              &apos;Time Between Ops&apos;
+              'Time Between Ops&apos;
             ]}
             data={reportData}
             emptyMessage="No time study data found for the selected filters."
