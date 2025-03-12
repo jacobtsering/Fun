@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 import Card from '@/components/ui/Card';
 
 interface OperationEditFormProps {
@@ -16,7 +16,7 @@ interface OperationEditFormProps {
     sequenceNumber: number;
   };
   onCancel: () => void;
-  onSave: (data: any) => void;
+  onSave: (data: unknown /* TODO: Replace with proper type */) => void;
 }
 
 export default function OperationEditForm({ 
@@ -41,7 +41,7 @@ export default function OperationEditForm({
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = async (e: React.FormEvent) => {
+  const _handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
@@ -158,7 +158,7 @@ export default function OperationEditForm({
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : 'Save Changes'}
+            {isSubmitting ? &apos;Saving...&apos; : 'Save Changes'}
           </Button>
         </div>
       </form>

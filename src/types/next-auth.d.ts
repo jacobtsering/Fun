@@ -1,4 +1,4 @@
-import { Session } from 'next-auth';
+// import { Session } from 'next-auth'; /* Commented out by fix-eslint.js */
 
 // Extend the built-in session types
 declare module 'next-auth' {

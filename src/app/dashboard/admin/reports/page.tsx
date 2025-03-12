@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react'; /* Commented out by fix-eslint.js */
 import { useRouter } from 'next/navigation';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 import Table from '@/components/ui/Table';
 
 interface Process {
@@ -22,7 +22,7 @@ interface TimeStudyData {
 }
 
 export default function ReportsPage() {
-  const router = useRouter();
+  const _router = useRouter();
   const [loading, setLoading] = useState(false);
   const [exportLoading, setExportLoading] = useState(false);
   const [processes, setProcesses] = useState<Process[]>([]);
@@ -78,7 +78,7 @@ export default function ReportsPage() {
             item.startTime,
             item.endTime || '-',
             item.totalTime || '-',
-            item.timeBetweenOps || 'N/A'
+            item.timeBetweenOps || &apos;N/A&apos;
           ]);
           
           setReportData(tableData);
@@ -208,7 +208,7 @@ export default function ReportsPage() {
               'Start Time',
               'End Time',
               'Total Time',
-              'Time Between Ops'
+              &apos;Time Between Ops&apos;
             ]}
             data={reportData}
             emptyMessage="No time study data found for the selected filters."

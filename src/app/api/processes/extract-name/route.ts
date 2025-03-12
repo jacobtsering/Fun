@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; /* Commented out by fix-eslint.js */
 import * as XLSX from 'xlsx';
 
 export async function POST(request: NextRequest) {

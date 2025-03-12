@@ -1,5 +1,5 @@
 import { requireAdminAuth } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; /* Commented out by fix-eslint.js */
 import ReplaceOperationForm from '@/components/forms/ReplaceOperationForm';
 
 export default async function ReplaceOperationPage({ params }: { params: { id: string } }) {

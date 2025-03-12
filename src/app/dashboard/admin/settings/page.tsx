@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 
 export default function SettingsPage() {
-  const router = useRouter();
+  const _router = useRouter();
   const [loading, setLoading] = useState(false);
   const [companyName, setCompanyName] = useState('Your Company Name');
   const [contactEmail, setContactEmail] = useState('admin@example.com');

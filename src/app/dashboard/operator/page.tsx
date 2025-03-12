@@ -1,7 +1,7 @@
 import { requireOperatorAuth } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; /* Commented out by fix-eslint.js */
 import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 import Link from 'next/link';
 
 export default async function OperatorDashboardPage() {

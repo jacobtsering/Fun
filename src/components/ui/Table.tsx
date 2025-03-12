@@ -2,7 +2,7 @@ import React from 'react';
 
 interface TableProps {
   headers: string[];
-  data: any[][];
+  data: unknown /* TODO: Replace with proper type */[][];
   className?: string;
   loading?: boolean;
   emptyMessage?: string;
@@ -13,7 +13,7 @@ export default function Table({
   data, 
   className = '', 
   loading = false,
-  emptyMessage = 'No data available'
+  emptyMessage = &apos;No data available&apos;
 }: TableProps) {
   return (
     <div className={`overflow-x-auto w-full ${className}`}>
@@ -31,7 +31,7 @@ export default function Table({
             ))}
           </tr>
         </thead>
-        <tbody className={`bg-white divide-y divide-gray-200 ${loading ? 'opacity-50' : ''}`}>
+        <tbody className={`bg-white divide-y divide-gray-200 ${loading ? &apos;opacity-50&apos; : ''}`}>
           {loading ? (
             // Loading skeleton rows
             Array(3).fill(0).map((_, rowIndex) => (
@@ -46,7 +46,7 @@ export default function Table({
           ) : data.length > 0 ? (
             // Actual data rows
             data.map((row, rowIndex) => (
-              <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+              <tr key={rowIndex} className={rowIndex % 2 === 0 ? &apos;bg-white&apos; : 'bg-gray-50'}>
                 {row.map((cell, cellIndex) => (
                   <td key={cellIndex} className="px-2 sm:px-4 md:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                     {cell}

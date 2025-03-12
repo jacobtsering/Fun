@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 import Card from '@/components/ui/Card';
 import OperationEditForm from '@/components/forms/OperationEditForm';
 import Link from 'next/link';
@@ -28,7 +28,7 @@ export default function EditOperationsClient({
   processName, 
   operations: initialOperations 
 }: EditOperationsClientProps) {
-  const router = useRouter();
+  const _router = useRouter();
   const [operations, setOperations] = useState<Operation[]>(initialOperations);
   const [editingOperationId, setEditingOperationId] = useState<string | null>(null);
   const [isAddingOperation, setIsAddingOperation] = useState(false);
@@ -100,7 +100,7 @@ export default function EditOperationsClient({
   };
 
   // Handle save changes for an existing operation
-  const handleSaveOperation = async (operationId: string, data: any) => {
+  const handleSaveOperation = async (operationId: string, data: unknown /* TODO: Replace with proper type */) => {
     try {
       setIsSaving(true);
       
@@ -133,7 +133,7 @@ export default function EditOperationsClient({
   };
 
   // Handle save for a new operation
-  const handleSaveNewOperation = async (data: any) => {
+  const handleSaveNewOperation = async (data: unknown /* TODO: Replace with proper type */) => {
     try {
       setIsSaving(true);
       

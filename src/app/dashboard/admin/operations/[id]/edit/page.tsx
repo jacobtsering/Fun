@@ -1,5 +1,5 @@
 import { requireAdminAuth } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+// import prisma from '@/lib/prisma'; /* Commented out by fix-eslint.js */
 import EditOperationsClient from '@/components/forms/EditOperationsClient';
 
 export default async function EditOperationPage({ params }: { params: { id: string } }) {

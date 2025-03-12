@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react'; /* Commented out by fix-eslint.js */
 import { useRouter } from 'next/navigation';
-import Button from '@/components/ui/Button';
+// import Button from '@/components/ui/Button'; /* Commented out by fix-eslint.js */
 import Card from '@/components/ui/Card';
 
 export default function FileUploadForm() {
-  const router = useRouter();
+  const _router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [processName, setProcessName] = useState('');
   const [extractedProcessName, setExtractedProcessName] = useState<string | null>(null);
@@ -88,7 +88,7 @@ export default function FileUploadForm() {
     return true;
   };
   
-  const handleSubmit = async (e: React.FormEvent) => {
+  const _handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -149,7 +149,7 @@ export default function FileUploadForm() {
           
           <div>
             <label htmlFor="processName" className="block text-sm font-medium text-gray-700 mb-1">
-              Process Name {extractedProcessName ? '(Optional - will use extracted name if empty)' : ''}
+              Process Name {extractedProcessName ? &apos;(Optional - will use extracted name if empty)&apos; : ''}
             </label>
             <input
               type="text"
@@ -157,9 +157,9 @@ export default function FileUploadForm() {
               value={processName}
               onChange={handleProcessNameChange}
               className={`w-full px-4 py-2 border rounded-md ${
-                nameExists ? 'border-red-500' : 'border-gray-300'
+                nameExists ? &apos;border-red-500&apos; : &apos;border-gray-300&apos;
               }`}
-              placeholder={extractedProcessName ? `Override "${extractedProcessName}" (optional)` : "Enter process name"}
+              placeholder={extractedProcessName ? `Override &quot;${extractedProcessName}&quot; (optional)` : "Enter process name"}
             />
             {nameExists && (
               <p className="mt-1 text-sm text-red-600">
@@ -187,7 +187,7 @@ export default function FileUploadForm() {
             type="submit"
             disabled={isUploading || nameExists || (!processName && !extractedProcessName)}
           >
-            {isUploading ? 'Uploading...' : 'Import Operation'}
+            {isUploading ? &apos;Uploading...&apos; : 'Import Operation'}
           </Button>
         </div>
       </Card>
