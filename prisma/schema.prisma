@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+  processes Process[]
+
+  @@map("companies")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  badgeId   String   @unique
+  name      String
+  role      String   // 'admin' or 'operator'
+  companyId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company             Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  operatorAccess      OperatorProcessAccess[]
+  timeStudySessions   TimeStudySession[]
+
+  @@map("users")
+}
+
+model Process {
+  id             String   @id @default(uuid())
+  name           String
+  companyId      String
+  trackingCount  Int      @default(0)
+  lastTrackedAt  DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  company             Company               @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  operations          Operation[]
+  operatorAccess      OperatorProcessAccess[]
+  timeStudySessions   TimeStudySession[]
+
+  @@unique([name, companyId])
+  @@map("processes")
+}
+
+model Operation {
+  id                  String   @id @default(uuid())
+  processId           String
+  operationId         String   // e.g. "OP001"
+  description         String
+  standardTimeSeconds Float?
+  toolsRequired       String?
+  qualityCheck        String?
+  sequenceNumber      Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  process             Process              @relation(fields: [processId], references: [id], onDelete: Cascade)
+  operationTimings    OperationTiming[]
+
+  @@unique([processId, operationId])
+  @@map("operations")
+}
+
+model OperatorProcessAccess {
+  id        String   @id @default(uuid())
+  userId    String
+  processId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  process   Process  @relation(fields: [processId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, processId])
+  @@map("operator_process_access")
+}
+
+model TimeStudySession {
+  id          String    @id @default(uuid())
+  userId      String
+  processId   String
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  process           Process            @relation(fields: [processId], references: [id], onDelete: Cascade)
+  operationTimings  OperationTiming[]
+
+  @@map("time_study_sessions")
+}
+
+model OperationTiming {
+  id                          String   @id @default(uuid())
+  sessionId                   String
+  operationId                 String
+  startTime                   DateTime
+  endTime                     DateTime?
+  totalTimeSeconds            Float?
+  timeBetweenOperationsSeconds Float?
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+
+  session    TimeStudySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  operation  Operation        @relation(fields: [operationId], references: [id], onDelete: Cascade)
+
+  @@map("operation_timings")
+}

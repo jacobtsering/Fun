@@ -1,0 +1,59 @@
+import { NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import { NextRequest } from 'next/server';
+
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request });
+  const isAuthenticated = !!token;
+  
+  // Get the pathname from the URL
+  const path = request.nextUrl.pathname;
+  
+  // Redirect paths based on authentication status and user role
+  if (!isAuthenticated && !path.startsWith('/auth')) {
+    // Redirect unauthenticated users to login
+    return NextResponse.redirect(new URL('/auth/login', request.url));
+  }
+  
+  if (isAuthenticated) {
+    // Redirect authenticated users away from auth pages
+    if (path.startsWith('/auth')) {
+      if (token.role === 'admin') {
+        return NextResponse.redirect(new URL('/dashboard/admin', request.url));
+      } else {
+        return NextResponse.redirect(new URL('/dashboard/operator', request.url));
+      }
+    }
+    
+    // Redirect users to appropriate dashboard based on role
+    if (path === '/dashboard' || path === '/') {
+      if (token.role === 'admin') {
+        return NextResponse.redirect(new URL('/dashboard/admin', request.url));
+      } else {
+        return NextResponse.redirect(new URL('/dashboard/operator', request.url));
+      }
+    }
+    
+    // Prevent operators from accessing admin pages
+    if (path.startsWith('/dashboard/admin') && token.role !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard/operator', request.url));
+    }
+    
+    // Prevent admins from accessing operator pages
+    if (path.startsWith('/dashboard/operator') && token.role !== 'operator') {
+      return NextResponse.redirect(new URL('/dashboard/admin', request.url));
+    }
+  }
+  
+  return NextResponse.next();
+}
+
+// Configure which paths the middleware runs on
+export const config = {
+  matcher: [
+    '/',
+    '/dashboard',
+    '/dashboard/:path*',
+    '/auth/:path*',
+  ],
+};
