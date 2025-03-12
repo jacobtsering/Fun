@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build-no-lint",
+  "devCommand": "npm run dev",
+  "framework": "nextjs"
+}
